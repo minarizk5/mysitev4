@@ -3,19 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 26, 26, 26;
+  --background-end-rgb: 42, 42, 42;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(135deg,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb)));
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.glass-container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+}
+
+@layer components {
+  .social-link {
+    @apply text-white hover:text-gray-300 transition-colors duration-300;
+  }
+  
+  .btn-primary {
+    @apply px-6 py-2 bg-white/10 hover:bg-white/20 text-white rounded-full 
+           transition-all duration-300 backdrop-blur-sm;
+  }
 }
