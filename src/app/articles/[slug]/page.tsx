@@ -359,6 +359,14 @@ type Props = {
   params: { slug: string }
 }
 
+export async function generateStaticParams() {
+  // Get all article slugs from the articles object
+  const slugs = Object.keys(articles);
+  return slugs.map((slug) => ({
+    slug: slug,
+  }));
+}
+
 export default function Article({ params }: Props) {
   const article = articles[params.slug];
 
