@@ -355,7 +355,11 @@ sudo apt autoremove # Remove unnecessary packages</code></pre>
   }
 };
 
-export default function Article({ params }: { params: { slug: string } }) {
+type Props = {
+  params: { slug: string }
+}
+
+export default function Article({ params }: Props) {
   const article = articles[params.slug];
 
   if (!article) {
