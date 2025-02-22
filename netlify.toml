@@ -5,7 +5,8 @@
 [build.environment]
   NEXT_USE_NETLIFY_EDGE = "true"
   NEXT_PRIVATE_TARGET = "server"
-  PYTHON_VERSION = "3.9.7"
+  PYTHON_VERSION = "3.8"
+  NODE_VERSION = "18"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
