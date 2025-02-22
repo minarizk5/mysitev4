@@ -2,6 +2,9 @@
   "name": "temp-next",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "python": "3.10.13"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -25,13 +28,5 @@
     "postcss": "^8.4.35",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.3.3"
-  }
-  {
-    "devDependencies": {
-      "typescript": "^5.3.3",
-      "tailwindcss": "^3.4.1", 
-      "postcss": "^8.4.35",
-      "autoprefixer": "^10.4.18"
-    }
   }
 }
