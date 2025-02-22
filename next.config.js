@@ -8,10 +8,6 @@ const nextConfig = {
     unoptimized: true,
   },
 
-  // Disable server-side features not supported in static exports
-  experimental: {
-    appDir: true,
-  },
 }
 
 module.exports = nextConfig
