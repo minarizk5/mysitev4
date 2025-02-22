@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "python": "3.13.2"
+    "python": "3.10.13"
   },
   "scripts": {
     "dev": "next dev",
