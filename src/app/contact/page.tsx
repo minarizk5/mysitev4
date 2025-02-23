@@ -51,7 +51,7 @@ export default function Contact() {
               <i className="fas fa-envelope text-2xl"></i>
             </a>
             <a href="https://x.com/minarizkoffical" target="_blank" rel="noopener noreferrer" className="social-link">
-              <i className="fab fa-x text-2xl"></i>
+              <i className="fab fa-twitter text-2xl"></i>
             </a>
           </div>
         </div>
