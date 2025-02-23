@@ -21,9 +21,7 @@ export default function Home() {
         </p>
         
         <div className="flex justify-center gap-6 mb-8">
-          <Link href="/articles" className="btn-primary">
-            Read Articles
-          </Link>
+          
           <Link href="/tweets" className="btn-primary">
             My Tweets
           </Link>
