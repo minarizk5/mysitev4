@@ -32,12 +32,14 @@ export default function Navigation() {
       {/* Mobile Sidebar */}
       <div className={`fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-lg transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
         <div className="p-4">
-          <button
-            className="text-white text-2xl mb-8"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <i className="fas fa-times"></i>
-          </button>
+          <div className="flex justify-end items-center mb-8">
+            <button
+              className="text-white text-2xl"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
           <div className="flex flex-col space-y-4">
             <Link href="/" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Home</Link>
             <Link href="/about" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>About</Link>
