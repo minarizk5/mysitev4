@@ -1,6 +1,7 @@
 export interface Article {
   title: string;
   content: string;
+  coverImage?: string;
 }
 
 export interface ArticleListItem {
@@ -8,6 +9,7 @@ export interface ArticleListItem {
   description: string;
   date: string;
   slug: string;
+  coverImage?: string;
 }
 
 export type ArticlesRecord = Record<string, Article>;

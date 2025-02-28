@@ -7,19 +7,22 @@ const articles: ArticleListItem[] = [
     title: 'Understanding Quantum Mechanics',
     description: 'Quantum mechanics is the theoretical framework that underpins our understanding of the universe',
     date: 'June 11, 2024',
-    slug: 'article1'
+    slug: 'article1',
+    coverImage: '/articels data/Understanding Quantum Mechanics.jpg'
   },
   {
     title: 'The Future of AI',
     description: 'Artificial Intelligence is transforming every aspect of our lives...',
     date: 'September 19, 2024',
-    slug: 'article2'
+    slug: 'article2',
+    coverImage: '/articels data/The Future of AI.jpg'
   },
   {
     title: 'Complete Guide to Ubuntu Linux',
     description: 'A comprehensive guide to installing and getting started with Ubuntu Linux',
     date: 'February 22, 2025',
-    slug: 'ubuntu-guide'
+    slug: 'ubuntu-guide',
+    coverImage: '/articels data/Complete Guide to Ubuntu Linux.jpg'
   }
 ];
 

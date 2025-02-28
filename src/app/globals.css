@@ -19,8 +19,8 @@
 /* Night sky theme variables */
 [data-theme='night-sky'] {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 10, 30;
-  --background-end-rgb: 30, 30, 60;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 15, 15, 15;
 }
 
 body {
@@ -76,20 +76,7 @@ body {
   animation: twinkle 8s ease-in-out infinite alternate;
 }
 
-/* Moon in night sky theme */
-[data-theme='night-sky'] .glass-container::before {
-  content: '';
-  position: fixed;
-  top: 40px;
-  right: 40px;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.9), rgba(255,255,255,0.4) 60%, transparent 70%);
-  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.3);
-  pointer-events: none;
-  z-index: -1;
-}
+
 
 @keyframes twinkle {
   0%, 100% {
@@ -126,9 +113,9 @@ body {
 }
 
 [data-theme='night-sky'] .glass-container {
-  background: rgba(20, 20, 50, 0.3);
-  box-shadow: 0 4px 15px rgba(100, 100, 255, 0.2);
-  border: 1px solid rgba(100, 100, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-container:hover {
@@ -137,7 +124,7 @@ body {
 }
 
 [data-theme='night-sky'] .glass-container:hover {
-  box-shadow: 0 8px 25px rgba(100, 100, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .profile-img {

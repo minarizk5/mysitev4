@@ -5,6 +5,7 @@ import { ArticlesRecord } from '@/types/article';
 const articles: ArticlesRecord = {
   'article1': {
     title: 'Understanding Quantum Mechanics',
+    coverImage: '/articels data/Understanding Quantum Mechanics.jpg',
     content: `
       <body>
     <div class="container">
@@ -76,6 +77,7 @@ const articles: ArticlesRecord = {
   },
   'article2': {
     title: 'The Future of AI',
+    coverImage: '/articels data/The Future of AI.jpg',
     content: `
       <body>
     <div class="container">
@@ -126,6 +128,7 @@ const articles: ArticlesRecord = {
   },
   'ubuntu-guide': {
     title: 'Complete Guide to Ubuntu Linux',
+    coverImage: '/articels data/Complete Guide to Ubuntu Linux.jpg',
     content: `
       <article class="prose prose-invert max-w-none">
         <h1>Complete Guide to Ubuntu Linux</h1>
