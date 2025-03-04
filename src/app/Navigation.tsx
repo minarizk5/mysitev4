@@ -25,6 +25,15 @@ export default function Navigation() {
             <Link href="/articles" className="text-white hover:text-gray-300">Articles</Link>
             <Link href="/gallery" className="text-white hover:text-gray-300">Gallery</Link>
             <Link href="/contact" className="text-white hover:text-gray-300">Contact</Link>
+            <Link 
+              href="https://minarizk5.github.io/Tetris/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-white bg-purple-600 hover:bg-purple-700 px-4 py-1 rounded-full transition-colors duration-200 flex items-center space-x-2"
+            >
+              <span>Play Tetris</span>
+              <i className="fas fa-gamepad"></i>
+            </Link>
           </div>
         </div>
       </nav>
@@ -46,6 +55,16 @@ export default function Navigation() {
             <Link href="/articles" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Articles</Link>
             <Link href="/gallery" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Gallery</Link>
             <Link href="/contact" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Contact</Link>
+            <Link 
+              href="https://minarizk5.github.io/Tetris/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-full transition-colors duration-200 flex items-center space-x-2 w-fit"
+              onClick={() => setIsSidebarOpen(false)}
+            >
+              <span>Play Tetris</span>
+              <i className="fas fa-gamepad"></i>
+            </Link>
           </div>
         </div>
       </div>
