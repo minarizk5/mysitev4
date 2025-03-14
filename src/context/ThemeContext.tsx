@@ -16,22 +16,24 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   // Initialize theme from localStorage or default to night-sky
   useEffect(() => {
-    // Check if it's a mobile device to potentially use lighter theme
+    // Check if it's a mobile device for CSS optimizations only
     const isMobile = window.innerWidth < 768;
     
     const savedTheme = localStorage.getItem('theme') as ThemeMode | null;
     if (savedTheme && (savedTheme === 'night-sky' || savedTheme === 'light')) {
+      // Always respect user's saved theme preference regardless of device
       setTheme(savedTheme);
       document.documentElement.setAttribute('data-theme', savedTheme);
     } else {
-      // Default to light theme on mobile for better performance
-      const defaultTheme = isMobile ? 'light' : 'night-sky';
+      // Default to night-sky theme for all devices
+      const defaultTheme = 'night-sky';
       setTheme(defaultTheme);
       document.documentElement.setAttribute('data-theme', defaultTheme);
       localStorage.setItem('theme', defaultTheme);
     }
     
     // Add a class to the body for mobile-specific optimizations
+    // This allows CSS to optimize performance without changing the theme
     if (isMobile) {
       document.body.classList.add('is-mobile');
     }

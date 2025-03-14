@@ -76,16 +76,22 @@ body {
   animation: twinkle 8s ease-in-out infinite alternate;
 }
 
-/* Reduce animations on mobile for better performance */
+/* Optimize animations on mobile for better performance */
 @media (max-width: 768px) {
   [data-theme='night-sky'] body::before,
   [data-theme='night-sky'] body::after {
-    background-image: none;
+    /* Simplified star pattern for mobile devices */
+    background-image: 
+      radial-gradient(1px 1px at 25% 5%, white, transparent),
+      radial-gradient(1px 1px at 50% 40%, white, transparent),
+      radial-gradient(1px 1px at 75% 75%, white, transparent);
+    opacity: 0.5;
   }
   
   body {
-    animation: none;
-    background-size: 100% 100%;
+    /* Reduce animation complexity but keep the gradient */
+    animation-duration: 30s;
+    background-size: 200% 200%;
   }
 }
 
