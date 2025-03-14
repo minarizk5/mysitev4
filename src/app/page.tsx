@@ -10,6 +10,7 @@ export default function Home() {
             src="/profile.jpg"
             alt="Mina Soliman"
             fill
+            sizes="150px"
             className="profile-img object-cover"
             priority
           />

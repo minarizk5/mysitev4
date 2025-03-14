@@ -1,10 +1,35 @@
 "use client"
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { useTheme } from '@/context/ThemeContext'
 
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  
+  // Handle scroll effect for navigation with debounce for better performance
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
+    const handleScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setScrolled(window.scrollY > 20);
+      }, 10);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+  
+  // Close sidebar when clicking outside on mobile
+  const closeSidebar = useCallback(() => {
+    if (isSidebarOpen) setIsSidebarOpen(false);
+  }, [isSidebarOpen])
 
   return (
     <>

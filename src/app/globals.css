@@ -76,6 +76,19 @@ body {
   animation: twinkle 8s ease-in-out infinite alternate;
 }
 
+/* Reduce animations on mobile for better performance */
+@media (max-width: 768px) {
+  [data-theme='night-sky'] body::before,
+  [data-theme='night-sky'] body::after {
+    background-image: none;
+  }
+  
+  body {
+    animation: none;
+    background-size: 100% 100%;
+  }
+}
+
 
 
 @keyframes twinkle {

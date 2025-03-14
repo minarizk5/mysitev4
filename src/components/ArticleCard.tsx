@@ -14,6 +14,8 @@ export default function ArticleCard({ title, description, date, slug, coverImage
               src={coverImage}
               alt={title}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+              loading="lazy"
               className="object-cover"
             />
           ) : (
