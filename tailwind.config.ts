@@ -64,13 +64,13 @@ export default {
           '50%': { transform: 'translateY(-10px)' },
         },
         pulseSoft: {
-          '0%, 100%': { opacity: 1 },
-          '50%': { opacity: 0.8 },
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
         },
         nebulaPulse: {
-          '0%': { opacity: 0.4 },
-          '50%': { opacity: 0.6 },
-          '100%': { opacity: 0.5 },
+          '0%': { opacity: '0.4' },
+          '50%': { opacity: '0.6' },
+          '100%': { opacity: '0.5' },
         },
       },
       backdropBlur: {
