@@ -7,6 +7,28 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 26, 26, 26;
   --background-end-rgb: 42, 42, 42;
+  
+  /* Primary colors - dark theme */
+  --primary-50: #f5f3ff;
+  --primary-100: #ede9fe;
+  --primary-200: #ddd6fe;
+  --primary-300: #c4b5fd;
+  --primary-400: #a78bfa;
+  --primary-500: #8b5cf6;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+  --primary-800: #5b21b6;
+  --primary-900: #4c1d95;
+  
+  /* Accent colors - dark theme */
+  --accent-light: #f472b6;
+  --accent: #ec4899;
+  --accent-dark: #db2777;
+  
+  /* Glass effect - dark theme */
+  --glass-light: rgba(255, 255, 255, 0.1);
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-dark: rgba(0, 0, 0, 0.3);
 }
 
 /* Light theme variables */
@@ -14,6 +36,28 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 240, 240, 240;
   --background-end-rgb: 255, 255, 255;
+  
+  /* Primary colors - light theme */
+  --primary-50: #f5f3ff;
+  --primary-100: #ede9fe;
+  --primary-200: #ddd6fe;
+  --primary-300: #c4b5fd;
+  --primary-400: #a78bfa;
+  --primary-500: #8b5cf6;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+  --primary-800: #5b21b6;
+  --primary-900: #4c1d95;
+  
+  /* Accent colors - light theme */
+  --accent-light: #f472b6;
+  --accent: #ec4899;
+  --accent-dark: #db2777;
+  
+  /* Glass effect - light theme */
+  --glass-light: rgba(255, 255, 255, 0.8);
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-dark: rgba(0, 0, 0, 0.05);
 }
 
 /* Night sky theme variables */
@@ -21,6 +65,28 @@
   --foreground-rgb: 255, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 15, 15, 15;
+  
+  /* Primary colors - night sky theme */
+  --primary-50: #f5f3ff;
+  --primary-100: #ede9fe;
+  --primary-200: #ddd6fe;
+  --primary-300: #c4b5fd;
+  --primary-400: #a78bfa;
+  --primary-500: #8b5cf6;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+  --primary-800: #5b21b6;
+  --primary-900: #4c1d95;
+  
+  /* Accent colors - night sky theme */
+  --accent-light: #67e8f9;
+  --accent: #06b6d4;
+  --accent-dark: #0891b2;
+  
+  /* Glass effect - night sky theme */
+  --glass-light: rgba(255, 255, 255, 0.08);
+  --glass: rgba(0, 0, 0, 0.3);
+  --glass-dark: rgba(0, 0, 0, 0.5);
 }
 
 body {
@@ -28,14 +94,14 @@ body {
   background: linear-gradient(135deg,
       rgb(var(--background-start-rgb)),
       rgb(var(--background-end-rgb)));
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   animation: gradientShift 15s ease infinite;
   background-size: 400% 400%;
   position: relative;
 }
 
-/* Night sky stars effect */
+/* Night sky stars effect - enhanced with more stars and nebula effect */
 [data-theme='night-sky'] body::before {
   content: '';
   position: fixed;
@@ -54,11 +120,16 @@ body {
     radial-gradient(2px 2px at 10% 55%, white, transparent),
     radial-gradient(1.5px 1.5px at 40% 80%, white, transparent),
     radial-gradient(1px 1px at 66% 70%, white, transparent),
-    radial-gradient(1px 1px at 90% 90%, white, transparent);
+    radial-gradient(1px 1px at 90% 90%, white, transparent),
+    radial-gradient(1px 1px at 15% 95%, white, transparent),
+    radial-gradient(1.5px 1.5px at 75% 45%, white, transparent),
+    radial-gradient(1px 1px at 30% 75%, white, transparent),
+    radial-gradient(2px 2px at 55% 5%, white, transparent);
   z-index: -1;
+  will-change: opacity;
 }
 
-/* Twinkling stars animation */
+/* Nebula effect */
 [data-theme='night-sky'] body::after {
   content: '';
   position: fixed;
@@ -67,13 +138,46 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-image: 
-    radial-gradient(1px 1px at 75% 25%, white, transparent),
-    radial-gradient(1px 1px at 20% 50%, white, transparent),
-    radial-gradient(1.5px 1.5px at 50% 40%, white, transparent),
-    radial-gradient(1px 1px at 80% 70%, white, transparent);
-  z-index: -1;
-  animation: twinkle 8s ease-in-out infinite alternate;
+  background: radial-gradient(circle at 50% 50%, rgba(75, 0, 130, 0.1), transparent 60%),
+              radial-gradient(circle at 20% 30%, rgba(0, 0, 255, 0.05), transparent 40%),
+              radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.05), transparent 50%);
+  z-index: -2;
+  opacity: 0.6;
+  animation: nebulaPulse 15s ease-in-out infinite alternate;
+}
+
+/* Shooting star animation */
+@keyframes shootingStar {
+  0% {
+    transform: translate(0, 0) rotate(45deg) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(300px, 300px) rotate(45deg) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Optimize animations on mobile for better performance */
+@media (max-width: 768px) {
+  [data-theme='night-sky'] body::before,
+  [data-theme='night-sky'] body::after {
+    /* Simplified star pattern for mobile devices */
+    background-image: 
+      radial-gradient(1px 1px at 25% 5%, white, transparent),
+      radial-gradient(1px 1px at 50% 40%, white, transparent),
+      radial-gradient(1px 1px at 75% 75%, white, transparent);
+    opacity: 0.5;
+  }
+  
+  body {
+    /* Reduce animation complexity but keep the gradient */
+    animation-duration: 30s;
+    background-size: 200% 200%;
+  }
 }
 
 /* Optimize animations on mobile for better performance */
@@ -119,20 +223,40 @@ body {
 }
 
 .glass-container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 15px;
+  background: var(--glass-light);
+  backdrop-filter: blur(var(--tw-backdrop-blur));
+  border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glass-container:hover::before {
+  opacity: 1;
 }
 
 [data-theme='light'] .glass-container {
-  background: rgba(255, 255, 255, 0.7);
+  background: var(--glass-light);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 [data-theme='night-sky'] .glass-container {
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--glass);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -143,40 +267,58 @@ body {
 }
 
 [data-theme='night-sky'] .glass-container:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px rgba(138, 43, 226, 0.2);
 }
 
 .profile-img {
-  width: 150px;
-  height: 150px;
   border-radius: 50%;
-  border: 3px solid #fff;
-  transition: transform 0.5s ease;
+  border: 3px solid transparent;
+  background: linear-gradient(135deg, var(--primary-400), var(--accent-light)) border-box;
+  -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  transition: all 0.5s ease;
+  animation: float 6s ease-in-out infinite;
 }
 
 .profile-img:hover {
-  transform: scale(1.05) rotate(5deg);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
 }
 
 @layer components {
   .social-link {
-    @apply text-white hover:text-gray-300 transition-colors duration-300;
+    @apply text-white hover:text-gray-300 transition-all duration-300;
     position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
   }
   
-  .social-link::after {
+  .social-link::before {
     content: '';
     position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -2px;
+    top: 0;
     left: 0;
-    background-color: white;
-    transition: width 0.3s ease;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-500), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
   }
   
-  .social-link:hover::after {
-    width: 100%;
+  .social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
   
   .btn-primary {

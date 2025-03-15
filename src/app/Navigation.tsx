@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import { useState, useEffect, useCallback } from 'react'
-import { useTheme } from '@/context/ThemeContext'
 
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -33,10 +32,12 @@ export default function Navigation() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full bg-black/20 backdrop-blur-lg z-50 p-4">
+      <nav className={`fixed top-0 left-0 w-full bg-glass backdrop-blur-lg z-50 p-4 transition-all duration-300 ${scrolled ? 'shadow-md bg-glass-dark' : ''}`}>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-glass-light to-transparent opacity-10"></div>
         <div className="container mx-auto flex justify-between items-center">
-          <Link href="/" className="text-white text-xl font-bold">
-            Mina Soliman
+          <Link href="/" className="text-white text-xl font-bold font-heading relative group overflow-hidden">
+            <span className="relative z-10 bg-clip-text bg-gradient-to-r from-primary-400 to-accent-light text-transparent">Mina Soliman</span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
           </Link>
           <button
             className="lg:hidden text-white text-2xl"
@@ -44,32 +45,55 @@ export default function Navigation() {
           >
             <i className="fas fa-bars"></i>
           </button>
-          <div className="hidden lg:flex space-x-6">
-            <Link href="/" className="text-white hover:text-gray-300">Home</Link>
-            <Link href="/about" className="text-white hover:text-gray-300">About</Link>
-            <Link href="/articles" className="text-white hover:text-gray-300">Articles</Link>
-            <Link href="/gallery" className="text-white hover:text-gray-300">Gallery</Link>
-            <Link href="/contact" className="text-white hover:text-gray-300">Contact</Link>
+          <div className="hidden lg:flex items-center space-x-6">
+            <Link href="/" className="text-white relative py-2 px-1 overflow-hidden group">
+              <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Home</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+            </Link>
+            <Link href="/about" className="text-white relative py-2 px-1 overflow-hidden group">
+              <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">About</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+            </Link>
+            <Link href="/articles" className="text-white relative py-2 px-1 overflow-hidden group">
+              <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Articles</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+            </Link>
+            <Link href="/gallery" className="text-white relative py-2 px-1 overflow-hidden group">
+              <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Gallery</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+            </Link>
+            <Link href="/contact" className="text-white relative py-2 px-1 overflow-hidden group">
+              <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Contact</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+              <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+            </Link>
             <Link 
               href="https://minarizk5.github.io/Tetris/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="text-white bg-purple-600 hover:bg-purple-700 px-4 py-1 rounded-full transition-colors duration-200 flex items-center space-x-2"
+              className="text-white bg-gradient-to-r from-purple-600 to-primary-600 hover:from-purple-700 hover:to-primary-700 px-4 py-1 rounded-full transition-all duration-300 flex items-center space-x-2 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:translate-y-[-2px]"
             >
               <span>Play Tetris</span>
-              <i className="fas fa-gamepad"></i>
+              <i className="fas fa-gamepad animate-pulse-soft"></i>
             </Link>
           </div>
         </div>
       </nav>
 
       {/* Mobile Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-lg transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
+      <div className={`fixed top-0 right-0 h-full w-72 bg-glass-dark backdrop-blur-xl transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden border-l border-white/10`}>
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-transparent opacity-50 pointer-events-none"></div>
         <div className="p-4">
-          <div className="flex justify-end items-center mb-8">
+          <div className="flex justify-between items-center mb-8">
+            <span className="text-xl font-bold font-heading bg-clip-text bg-gradient-to-r from-primary-400 to-accent-light text-transparent">Mina Soliman</span>
             <button
-              className="text-white text-2xl"
+              className="text-white text-xl w-10 h-10 rounded-full bg-glass-light backdrop-blur-sm flex items-center justify-center hover:bg-white/10 transition-all duration-200"
               onClick={() => setIsSidebarOpen(false)}
+              aria-label="Close menu"
             >
               <i className="fas fa-times"></i>
             </button>
