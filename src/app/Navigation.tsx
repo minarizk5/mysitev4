@@ -1,90 +1,52 @@
-'use client';
+"use client"
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faGamepad } from '@fortawesome/free-solid-svg-icons';
-import MobileSidebar from '../components/MobileSidebar';
+import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Navigation() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <>
-      <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          scrolled ? 'bg-glass-dark shadow-lg' : 'bg-glass'
-        } backdrop-blur-lg`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-              <Link href="/" className="text-white text-2xl font-bold">
-                Mina Soliman
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6">
-              {['Home', 'About', 'Articles', 'Gallery', 'Contact'].map(
-                (item) => (
-                  <Link
-                    key={item}
-                    href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                    className="text-white relative py-2 px-1 overflow-hidden group"
-                  >
-                    <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">
-                      {item}
-                    </span>
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-                    <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
-                  </Link>
-                )
-              )}
-              <a
-                href="https://minarizk5.github.io/Tetris/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white bg-gradient-to-r from-purple-600 to-primary-600 hover:from-purple-700 hover:to-primary-700 px-4 py-2 rounded-full transition-all duration-300 flex items-center space-x-2"
-              >
-                <span>Play Tetris</span>
-                <FontAwesomeIcon icon={faGamepad} className="w-5 h-5" />
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={toggleSidebar}
-                className="text-white hover:text-primary-400 transition-colors duration-300"
-                aria-label="Open menu"
-                aria-expanded={sidebarOpen}
-                aria-controls="mobile-sidebar"
-              >
-                <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
-              </button>
-            </div>
+      <nav className="fixed top-0 left-0 w-full bg-black/20 backdrop-blur-lg z-50 p-4">
+        <div className="container mx-auto flex justify-between items-center">
+          <Link href="/" className="text-white text-xl font-bold">
+            Mina Soliman
+          </Link>
+          <button
+            className="lg:hidden text-white text-2xl"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          >
+            <i className="fas fa-bars"></i>
+          </button>
+          <div className="hidden lg:flex space-x-6">
+            <Link href="/" className="text-white hover:text-gray-300">Home</Link>
+            <Link href="/about" className="text-white hover:text-gray-300">About</Link>
+            <Link href="/articles" className="text-white hover:text-gray-300">Articles</Link>
+            <Link href="/gallery" className="text-white hover:text-gray-300">Gallery</Link>
+            <Link href="/contact" className="text-white hover:text-gray-300">Contact</Link>
           </div>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-glass-light to-transparent opacity-10" />
       </nav>
 
       {/* Mobile Sidebar */}
-      <MobileSidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+      <div className={`fixed top-0 right-0 h-full w-64 bg-black/95 backdrop-blur-lg transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
+        <div className="p-4">
+          <button
+            className="text-white text-2xl mb-8"
+            onClick={() => setIsSidebarOpen(false)}
+          >
+            <i className="fas fa-times"></i>
+          </button>
+          <div className="flex flex-col space-y-4">
+            <Link href="/" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Home</Link>
+            <Link href="/about" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>About</Link>
+            <Link href="/articles" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Articles</Link>
+            <Link href="/gallery" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Gallery</Link>
+            <Link href="/contact" className="text-white hover:text-gray-300" onClick={() => setIsSidebarOpen(false)}>Contact</Link>
+          </div>
+        </div>
+      </div>
     </>
-  );
+  )
 }
