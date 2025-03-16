@@ -1,8 +1,9 @@
 "use client"
 
 import Link from 'next/link'
-import '@fortawesome/fontawesome-free/css/all.min.css'
 import { useState, useEffect, useCallback } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTimes, faGamepad } from '@fortawesome/free-solid-svg-icons'
 
 export default function Navigation() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function Navigation() {
             className="lg:hidden text-white text-2xl"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
-            <i className="fas fa-bars"></i>
+            <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
           </button>
           <div className="hidden lg:flex items-center space-x-6">
             <Link href="/" className="text-white relative py-2 px-1 overflow-hidden group">
@@ -79,7 +80,7 @@ export default function Navigation() {
               className="text-white bg-gradient-to-r from-purple-600 to-primary-600 hover:from-purple-700 hover:to-primary-700 px-4 py-1 rounded-full transition-all duration-300 flex items-center space-x-2 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:translate-y-[-2px]"
             >
               <span>Play Tetris</span>
-              <i className="fas fa-gamepad animate-pulse-soft"></i>
+              <FontAwesomeIcon icon={faGamepad} className="w-6 h-6 animate-pulse-soft" />
             </Link>
           </div>
         </div>
@@ -94,7 +95,7 @@ export default function Navigation() {
         />
       )}
       {/* Mobile Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-72 bg-glass-dark backdrop-blur-xl transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden border-l border-white/10`}>
+      <div className={`fixed top-0 right-0 h-full w-72 bg-glass-dark backdrop-blur-xl transform transition-all duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'} lg:hidden border-l border-white/10 shadow-xl`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-transparent opacity-50 pointer-events-none"></div>
         <div className="p-4">
           <div className="flex justify-between items-center mb-8">
@@ -104,7 +105,7 @@ export default function Navigation() {
               onClick={() => setIsSidebarOpen(false)}
               aria-label="Close menu"
             >
-              <i className="fas fa-times"></i>
+              <FontAwesomeIcon icon={faTimes} className="w-6 h-6" />
             </button>
           </div>
           <div className="flex flex-col space-y-4">
@@ -121,7 +122,7 @@ export default function Navigation() {
               onClick={() => setIsSidebarOpen(false)}
             >
               <span>Play Tetris</span>
-              <i className="fas fa-gamepad"></i>
+              <FontAwesomeIcon icon={faGamepad} className="w-6 h-6" />
             </Link>
           </div>
         </div>
