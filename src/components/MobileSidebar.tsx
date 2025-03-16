@@ -3,7 +3,12 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faGamepad } from '@fortawesome/free-solid-svg-icons';
 
-export default function MobileSidebar({ isOpen, toggleSidebar }) {
+interface MobileSidebarProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarProps) {
   return (
     <div
       className={`fixed top-0 left-0 w-64 h-full bg-glass backdrop-blur-lg text-white z-50 transform transition-transform duration-300 ease-in-out ${
