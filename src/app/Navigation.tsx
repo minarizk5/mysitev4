@@ -43,7 +43,11 @@ export default function Navigation() {
           </Link>
           <button
             className="lg:hidden text-white text-2xl"
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsSidebarOpen(!isSidebarOpen);
+            }}
+            aria-label="Toggle menu"
           >
             <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
           </button>
