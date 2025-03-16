@@ -5,14 +5,15 @@ export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center p-4">
       <div className="glass-container p-8 max-w-2xl w-full text-center">
-        <div className="relative mx-auto mb-6 w-[150px] h-[150px]">
+        <div className="relative mx-auto mb-6 w-[150px] h-[150px] profile-circle">
           <Image
-            src="/profile.jpg"
+            src="/profile.webp"
             alt="Mina Soliman"
-            fill
-            sizes="150px"
-            className="profile-img object-cover"
+            width={150}
+            height={150}
+            className="profile-img"
             priority
+            style={{ width: '150px', height: '150px' }}
           />
         </div>
         

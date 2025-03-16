@@ -84,6 +84,14 @@ export default function Navigation() {
         </div>
       </nav>
 
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={closeSidebar}
+          aria-hidden="true"
+        />
+      )}
       {/* Mobile Sidebar */}
       <div className={`fixed top-0 right-0 h-full w-72 bg-glass-dark backdrop-blur-xl transform transition-transform duration-300 ease-in-out z-50 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden border-l border-white/10`}>
         <div className="absolute inset-0 bg-gradient-to-b from-primary-900/20 to-transparent opacity-50 pointer-events-none"></div>
