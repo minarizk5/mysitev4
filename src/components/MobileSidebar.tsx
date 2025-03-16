@@ -1,134 +1,51 @@
-"use client"
+import React from 'react';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes, faGamepad } from '@fortawesome/free-solid-svg-icons';
 
-import { useEffect, useRef } from 'react'
-import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-interface MobileSidebarProps {
-  isOpen: boolean
-  toggleSidebar: () => void
-}
-
-export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarProps) {
-  const sidebarRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && isOpen) {
-        toggleSidebar()
-      }
-    }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [isOpen, toggleSidebar])
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-    return () => { document.body.style.overflow = 'unset' }
-  }, [isOpen])
-
-  const handleNavigation = () => {
-    toggleSidebar()
-  }
-
-  const menuItems = [
-    { path: '/', label: 'Home' },
-    { path: '/about', label: 'About' },
-    { path: '/articles', label: 'Articles' },
-    { path: '/gallery', label: 'Gallery' },
-    { path: '/contact', label: 'Contact' },
-  ]
-
+export default function MobileSidebar({ isOpen, toggleSidebar }) {
   return (
-    <AnimatePresence mode="wait">
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+    <div
+      className={`fixed top-0 left-0 w-64 h-full bg-glass backdrop-blur-lg text-white z-50 transform transition-transform duration-300 ease-in-out ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}
+    >
+      <div className="p-4 flex justify-between items-center">
+        <h2 className="text-xl font-bold">Menu</h2>
+        <button
+          onClick={toggleSidebar}
+          className="text-white hover:text-primary-400 transition-colors duration-300"
+          aria-label="Close menu"
+        >
+          <FontAwesomeIcon icon={faTimes} className="w-6 h-6" />
+        </button>
+      </div>
+      <nav className="flex flex-col p-4 space-y-2">
+        {['Home', 'About', 'Articles', 'Gallery', 'Contact'].map((item) => (
+          <Link
+            key={item}
+            href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
             onClick={toggleSidebar}
-            aria-hidden="true"
-          />
-          <motion.div
-            ref={sidebarRef}
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed top-0 left-0 h-full w-72 bg-slate-900/90 backdrop-blur-xl z-50"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Navigation menu"
+            className="text-white relative py-2 px-4 overflow-hidden group"
           >
-            <div className="h-full flex flex-col p-6">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-bold text-white">Navigation</h2>
-                <button
-                  onClick={toggleSidebar}
-                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
-                  aria-label="Close menu"
-                >
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              <nav className="space-y-1">
-                {menuItems.map((item) => (
-                  <motion.div
-                    key={item.path}
-                    whileHover={{ x: 4 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Link
-                      href={item.path}
-                      onClick={handleNavigation}
-                      className="block w-full text-left px-4 py-3 text-white rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-3"
-                    >
-                      <span className="text-lg">{item.label}</span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
-
-              <div className="mt-auto pt-6 border-t border-white/10">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <a
-                    href="https://minarizk5.github.io/Tetris/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full px-4 py-3 text-center text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-colors shadow-lg"
-                    onClick={toggleSidebar}
-                  >
-                    Play Tetris
-                  </a>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  )
+            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">
+              {item}
+            </span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
+            <span className="absolute inset-0 w-full h-full bg-white/5 scale-0 rounded-lg transition-transform duration-300 group-hover:scale-100 opacity-0 group-hover:opacity-100"></span>
+          </Link>
+        ))}
+        <a
+          href="https://minarizk5.github.io/Tetris/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white bg-gradient-to-r from-purple-600 to-primary-600 hover:from-purple-700 hover:to-primary-700 px-4 py-2 rounded-full transition-all duration-300 flex items-center space-x-2 mt-4"
+          onClick={toggleSidebar}
+        >
+          <span>Play Tetris</span>
+          <FontAwesomeIcon icon={faGamepad} className="w-5 h-5" />
+        </a>
+      </nav>
+    </div>
+  );
 }
