@@ -1,128 +1,137 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faXmark, faGamepad } from '@fortawesome/free-solid-svg-icons'
+import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 interface MobileSidebarProps {
-  isOpen: boolean;
-  toggleSidebar: () => void;
+  isOpen: boolean
+  toggleSidebar: () => void
 }
 
 export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarProps) {
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+  const sidebarRef = useRef<HTMLDivElement>(null)
 
-  // Close sidebar when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && isOpen) {
-        toggleSidebar();
+        toggleSidebar()
       }
-    };
+    }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen, toggleSidebar]);
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [isOpen, toggleSidebar])
 
-  // Prevent body scrolling when sidebar is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = '';
+      document.body.style.overflow = 'unset'
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isOpen]);
+    return () => { document.body.style.overflow = 'unset' }
+  }, [isOpen])
+
+  const handleNavigation = (path: string) => {
+    toggleSidebar()
+    router.push(path)
+  }
+
+  const menuItems = [
+    { path: '/', label: 'Home' },
+    { path: '/about', label: 'About' },
+    { path: '/articles', label: 'Articles' },
+    { path: '/gallery', label: 'Gallery' },
+    { path: '/contact', label: 'Contact' },
+  ]
 
   return (
-    <div 
-      ref={sidebarRef}
-      id="mobile-sidebar"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Navigation menu"
-      className={`fixed top-0 right-0 h-full w-64 bg-glass backdrop-blur-lg z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
-    >
-      <div className="absolute inset-0 bg-gradient-to-b from-glass-light via-glass to-glass-dark opacity-50"></div>
-      <div className="relative z-10 h-full flex flex-col p-6">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-xl font-bold bg-clip-text bg-gradient-to-r from-primary-400 to-accent-light text-transparent">Menu</h2>
-          <button 
+    <AnimatePresence mode="wait">
+      {isOpen && (
+        <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
             onClick={toggleSidebar}
-            className="text-white hover:text-primary-400 transition-colors duration-300"
-            aria-label="Close menu"
-            aria-expanded={isOpen}
-            role="button"
+            aria-hidden="true"
+          />
+          <motion.div
+            ref={sidebarRef}
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed top-0 left-0 h-full w-72 bg-slate-900/90 backdrop-blur-xl z-50"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
           >
-            <FontAwesomeIcon icon={faXmark} className="w-6 h-6" />
-          </button>
-        </div>
-        
-        <nav className="flex flex-col space-y-4">
-          <Link 
-            href="/" 
-            className="text-white relative py-2 overflow-hidden group"
-            onClick={toggleSidebar}
-          >
-            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Home</span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </Link>
-          
-          <Link 
-            href="/about" 
-            className="text-white relative py-2 overflow-hidden group"
-            onClick={toggleSidebar}
-          >
-            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">About</span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </Link>
-          
-          <Link 
-            href="/articles" 
-            className="text-white relative py-2 overflow-hidden group"
-            onClick={toggleSidebar}
-          >
-            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Articles</span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </Link>
-          
-          <Link 
-            href="/gallery" 
-            className="text-white relative py-2 overflow-hidden group"
-            onClick={toggleSidebar}
-          >
-            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Gallery</span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </Link>
-          
-          <Link 
-            href="/contact" 
-            className="text-white relative py-2 overflow-hidden group"
-            onClick={toggleSidebar}
-          >
-            <span className="relative z-10 font-medium transition-colors duration-300 group-hover:text-primary-400">Contact</span>
-            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-400 to-accent-light transform scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100"></span>
-          </Link>
-        </nav>
-        
-        <div className="mt-auto pt-6 border-t border-white/10">
-          <Link 
-            href="https://minarizk5.github.io/Tetris/" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-white bg-gradient-to-r from-purple-600 to-primary-600 hover:from-purple-700 hover:to-primary-700 px-4 py-2 rounded-full transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg shadow-purple-600/20 hover:shadow-purple-600/40 hover:translate-y-[-2px] w-full"
-            onClick={toggleSidebar}
-          >
-            <span>Play Tetris</span>
-            <FontAwesomeIcon icon={faGamepad} className="w-5 h-5 animate-pulse-soft" />
-          </Link>
-        </div>
-      </div>
-    </div>
+            <div className="h-full flex flex-col p-6">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-bold text-white">Navigation</h2>
+                <button
+                  onClick={toggleSidebar}
+                  className="p-2 rounded-full hover:bg-white/10 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <svg
+                    className="w-6 h-6 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <nav className="space-y-1">
+                {menuItems.map((item) => (
+                  <motion.div
+                    key={item.path}
+                    whileHover={{ x: 4 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <button
+                      onClick={() => handleNavigation(item.path)}
+                      className="w-full text-left px-4 py-3 text-white rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-3"
+                    >
+                      <span className="text-lg">{item.label}</span>
+                    </button>
+                  </motion.div>
+                ))}
+              </nav>
+
+              <div className="mt-auto pt-6 border-t border-white/10">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <a
+                    href="https://minarizk5.github.io/Tetris/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full px-4 py-3 text-center text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-colors shadow-lg"
+                    onClick={toggleSidebar}
+                  >
+                    Play Tetris
+                  </a>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   )
 }
