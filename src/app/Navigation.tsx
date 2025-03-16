@@ -85,6 +85,9 @@ export default function Navigation() {
             onClick={toggleSidebar}
             className="md:hidden text-white hover:text-primary-400 transition-colors duration-300"
             aria-label="Open menu"
+            aria-expanded={sidebarOpen}
+            aria-controls="mobile-sidebar"
+            role="button"
           >
             <FontAwesomeIcon icon={faBars} className="w-6 h-6" />
           </button>

@@ -42,6 +42,10 @@ export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarPr
   return (
     <div 
       ref={sidebarRef}
+      id="mobile-sidebar"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
       className={`fixed top-0 right-0 h-full w-64 bg-glass backdrop-blur-lg z-50 shadow-lg transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
     >
       <div className="absolute inset-0 bg-gradient-to-b from-glass-light via-glass to-glass-dark opacity-50"></div>
@@ -52,6 +56,8 @@ export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarPr
             onClick={toggleSidebar}
             className="text-white hover:text-primary-400 transition-colors duration-300"
             aria-label="Close menu"
+            aria-expanded={isOpen}
+            role="button"
           >
             <FontAwesomeIcon icon={faXmark} className="w-6 h-6" />
           </button>
