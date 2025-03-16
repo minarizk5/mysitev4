@@ -49,13 +49,14 @@ export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarPr
       {/* Backdrop overlay */}
       <div 
         onClick={toggleSidebar}
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         aria-hidden="true"
       />
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 w-72 h-full bg-glass-dark shadow-xl backdrop-blur-lg text-white z-50 transform transition-all duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`fixed top-0 left-0 w-72 h-full bg-glass-dark shadow-xl backdrop-blur-lg text-white z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        style={{ willChange: 'transform' }}
       >
         <div className="p-6 flex justify-between items-center border-b border-white/10">
           <Link href="/" className="text-white text-xl font-bold" onClick={toggleSidebar}>
