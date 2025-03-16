@@ -3,15 +3,12 @@
 import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useRouter } from 'next/navigation'
-
 interface MobileSidebarProps {
   isOpen: boolean
   toggleSidebar: () => void
 }
 
 export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarProps) {
-  const router = useRouter()
   const sidebarRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -34,9 +31,8 @@ export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarPr
     return () => { document.body.style.overflow = 'unset' }
   }, [isOpen])
 
-  const handleNavigation = (path: string) => {
+  const handleNavigation = () => {
     toggleSidebar()
-    router.push(path)
   }
 
   const menuItems = [
@@ -102,12 +98,13 @@ export default function MobileSidebar({ isOpen, toggleSidebar }: MobileSidebarPr
                     whileHover={{ x: 4 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <button
-                      onClick={() => handleNavigation(item.path)}
-                      className="w-full text-left px-4 py-3 text-white rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-3"
+                    <Link
+                      href={item.path}
+                      onClick={handleNavigation}
+                      className="block w-full text-left px-4 py-3 text-white rounded-lg hover:bg-white/10 transition-colors flex items-center space-x-3"
                     >
                       <span className="text-lg">{item.label}</span>
-                    </button>
+                    </Link>
                   </motion.div>
                 ))}
               </nav>
